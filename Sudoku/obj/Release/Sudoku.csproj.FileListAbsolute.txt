@@ -1,0 +1,14 @@
+D:\Study\VisualStudio\WindwosPresentationFoundation\Sudoku\Sudoku\bin\Release\Sudoku.exe.config
+D:\Study\VisualStudio\WindwosPresentationFoundation\Sudoku\Sudoku\bin\Release\Sudoku.exe
+D:\Study\VisualStudio\WindwosPresentationFoundation\Sudoku\Sudoku\bin\Release\Sudoku.pdb
+D:\Study\VisualStudio\WindwosPresentationFoundation\Sudoku\Sudoku\obj\Release\MainWindow.g.cs
+D:\Study\VisualStudio\WindwosPresentationFoundation\Sudoku\Sudoku\obj\Release\App.g.cs
+D:\Study\VisualStudio\WindwosPresentationFoundation\Sudoku\Sudoku\obj\Release\Sudoku_MarkupCompile.cache
+D:\Study\VisualStudio\WindwosPresentationFoundation\Sudoku\Sudoku\obj\Release\Sudoku_MarkupCompile.lref
+D:\Study\VisualStudio\WindwosPresentationFoundation\Sudoku\Sudoku\obj\Release\MainWindow.baml
+D:\Study\VisualStudio\WindwosPresentationFoundation\Sudoku\Sudoku\obj\Release\Sudoku.g.resources
+D:\Study\VisualStudio\WindwosPresentationFoundation\Sudoku\Sudoku\obj\Release\Sudoku.Properties.Resources.resources
+D:\Study\VisualStudio\WindwosPresentationFoundation\Sudoku\Sudoku\obj\Release\Sudoku.csproj.GenerateResource.Cache
+D:\Study\VisualStudio\WindwosPresentationFoundation\Sudoku\Sudoku\obj\Release\Sudoku.exe
+D:\Study\VisualStudio\WindwosPresentationFoundation\Sudoku\Sudoku\obj\Release\Sudoku.pdb
+D:\Study\VisualStudio\WindwosPresentationFoundation\Sudoku\Sudoku\obj\Release\Sudoku.csprojResolveAssemblyReference.cache
