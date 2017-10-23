@@ -1,0 +1,312 @@
+﻿<Window x:Class="Sudoku.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Sudoku" Icon="sudoku.ico"
+        mc:Ignorable="d" ResizeMode="CanMinimize" WindowStartupLocation="CenterScreen"
+        Title="数独" Height="400" Width="420" Loaded="Window_Loaded" Closing="Window_Closing">
+    <Window.Resources>
+        <Style TargetType="TextBox">
+            <EventSetter Event="TextChanged" Handler="TextBox_TextChanged"/>
+            <EventSetter Event="MouseWheel" Handler="TextBox_MouseWheel"/>
+            <Setter Property="Focusable" Value="True"/>
+            <Setter Property="MaxLength" Value="1"/>
+            <Setter Property="TextAlignment" Value="Center"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="FontSize" Value="20"/>
+            <Setter Property="Padding" Value="0 6 0 0"/>
+            <Setter Property="BorderBrush" Value="OrangeRed"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="ToolTipService.ShowOnDisabled" Value="True"/>
+        </Style>
+        <Style TargetType="ToolTip">
+            <Setter Property="BorderBrush" Value="DarkRed"/>
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="Foreground" Value="DarkSlateBlue"/>
+            <Setter Property="BorderThickness" Value="2"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="ToolTipService.BetweenShowDelay" Value="1"/>
+            <Setter Property="ToolTipService.HasDropShadow" Value="True"/>
+            <Setter Property="ToolTipService.InitialShowDelay" Value="1"/>
+            <Setter Property="ToolTipService.Placement" Value="Right"/>
+            <Setter Property="ToolTipService.ShowDuration" Value="600000"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="ToolTipService.VerticalOffset" Value="2.5"/>
+        </Style>
+        <Style TargetType="MenuItem">
+            <EventSetter Event="Click" Handler="MenuItem_Click"/>
+            <!--<Setter Property="Background" Value="White"/>-->
+            <Setter Property="Foreground" Value="DarkRed"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="MenuItem">
+                        <Border BorderThickness="0.5" BorderBrush="DarkBlue" CornerRadius="1" Name="MenuBorder" Width="60" Background="Transparent" Height="20" VerticalAlignment="Center">
+                            <Grid>
+                                <ContentPresenter ContentSource="Header" HorizontalAlignment="Center" Height="30" VerticalAlignment="Top"/>
+                                <Popup IsOpen="{TemplateBinding IsSubmenuOpen}" Placement="Bottom" AllowsTransparency="True">
+                                    <Border Margin="2" Background="White" BorderBrush="DarkBlue" BorderThickness="0.5">
+                                        <StackPanel IsItemsHost="True"></StackPanel>
+                                    </Border>
+                                </Popup>
+                            </Grid>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="MenuBorder" Property="Background" Value="DarkOrange"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Foreground" Value="White"/>
+                    <Setter Property="FontWeight" Value="Bold"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+        <Style TargetType="Menu">
+            <Setter Property="Background" Value="White"/>
+        </Style>
+        <Style TargetType="TextBlock">
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="Foreground" Value="DarkRed"/>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Foreground" Value="BlueViolet"/>
+                    <Setter Property="FontWeight" Value="Bold"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+        <Style TargetType="Button">
+            <Setter Property="Foreground" Value="DarkRed"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border BorderThickness="1" BorderBrush="OrangeRed" CornerRadius="2" Name="Border" Width="100" Background="Transparent" HorizontalAlignment="Center">
+                            <TextBlock Foreground="{TemplateBinding Foreground}" HorizontalAlignment="Center"
+                                       VerticalAlignment="Center" FontSize="{TemplateBinding FontSize}" 
+                                       FontFamily="{TemplateBinding FontFamily}" Text="{TemplateBinding Content}"></TextBlock>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="Border" Property="BorderBrush" Value="DarkBlue"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Foreground" Value="OrangeRed"/>
+                    <Setter Property="FontWeight" Value="Bold"/>
+                    <Setter Property="FontSize" Value="15"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+        <Style TargetType="ComboBox">
+            <Setter Property="Foreground" Value="OrangeRed"/>
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="BorderBrush" Value="Red"/>
+            <Setter Property="IsEditable" Value="False"/>
+        </Style>
+        <Style TargetType="ComboBoxItem">
+            <Setter Property="BorderBrush" Value="Red"/>
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Foreground" Value="OrangeRed"/>
+            <Setter Property="BorderThickness" Value="1 0.5"/>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="Transparent"/>
+                    <Setter Property="FontWeight" Value="Bold"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Resources>
+    <Grid Name="mainGrid">
+        <Grid.Resources>
+            <Style TargetType="Border">
+                <Setter Property="BorderBrush" Value="DarkBlue"/>
+                <Setter Property="BorderThickness" Value="1"/>
+            </Style>
+        </Grid.Resources>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="1" Name="gameGrid">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid Name="first">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+            </Grid>
+            <Grid Grid.Column="1" Name="second">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+            </Grid>
+            <Grid Grid.Column="2" Name="third">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+            </Grid>
+            <Grid Grid.Row="1" Name="fourth">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+            </Grid>
+            <Grid Grid.Column="1" Grid.Row="1" Name="fifth">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+            </Grid>
+            <Grid Grid.Column="2" Grid.Row="1" Name="sixth">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+            </Grid>
+            <Grid Grid.Row="2" Name="seventh">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+            </Grid>
+            <Grid Grid.Column="1" Grid.Row="2" Name="eighth">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+            </Grid>
+            <Grid Grid.Column="2" Grid.Row="2" Name="ninth">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+            </Grid>
+            <Border></Border>
+            <Border Grid.Column="1"/>
+            <Border Grid.Column="2"></Border>
+            <Border Grid.Row="1"/>
+            <Border Grid.Column="1" Grid.Row="1"></Border>
+            <Border Grid.Row="1" Grid.Column="2"/>
+            <Border Grid.Row="2"></Border>
+            <Border Grid.Row="2" Grid.Column="1"/>
+            <Border Grid.Row="2" Grid.Column="2"></Border>
+        </Grid>
+        <Menu>
+            <MenuItem Header="游戏">
+                <MenuItem Header="开始"/>
+                <MenuItem Header="继续"/>
+                <MenuItem Header="保存"/>
+                <MenuItem Header="查解"/>
+            </MenuItem>
+            <MenuItem Header="难度">
+                <MenuItem Header="简单"/>
+                <MenuItem Header="一般"/>
+                <MenuItem Header="困难"/>
+                <MenuItem Header="抓狂"/>
+            </MenuItem>
+            <MenuItem Header="选项">
+                <MenuItem Header="编辑"/>
+                <MenuItem Header="读取"/>
+                <MenuItem Header="求解"/>
+                <MenuItem Header="验证"/>
+            </MenuItem>
+            <MenuItem Header="帮助">
+                <MenuItem Header="数独"/>
+                <MenuItem Header="操作"/>
+                <MenuItem Header="关于"/>
+            </MenuItem>
+        </Menu>
+        <Grid Grid.Row="2" Name="statusGrid">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="150"/>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <TextBlock Text="用时："/>
+            <TextBlock Name="timer" Grid.Column="1"/>
+            <TextBlock Text="难度：" Grid.Column="2"/>
+            <TextBlock Name="harder" Grid.Column="3" Text="简单"/>
+            <TextBlock Text="状态：" Grid.Column="4"/>
+            <TextBlock Name="status" Grid.Column="5" Text="未开始">
+            </TextBlock>
+        </Grid>
+    </Grid>
+</Window>
