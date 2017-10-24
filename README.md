@@ -6,4 +6,4 @@
 
 ![截图](http://oq4pzgtcb.bkt.clouddn.com/zhazhapan/md/QQ20171023-202837@2x.png)
 
-![截图](http://oq4pzgtcb.bkt.clouddn.com/zhazhapan/md/QQ20171023-202817@2x.png)
+![截图](http://oq4pzgtcb.bkt.clouddn.com/zhazhapan/md/QQ20171024-122745@2x.png)
