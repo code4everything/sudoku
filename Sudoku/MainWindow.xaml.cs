@@ -383,23 +383,11 @@ namespace Sudoku
 						board[i / 3 * 3 + j / 3, i % 3 * 3 + j % 3] = s.Length < 1 ? '.' : s[0];
 					}
 				}
-				//调试输出
-				//for (int i = 0; i < 9; i++)
-				//{
-				//	for (int j = 0; j < 9; j++)
-				//	{
-				//		Console.Write(board[i, j] + " ");
-				//	}
-				//	Console.WriteLine();
-				//}
 				if (!IsValidSudoku(board) || !Solve(board, 0, 0))
 				{
 					MessageBox.Show("糟糕，没有找到解，这个数独不对哦！","数独",MessageBoxButton.OK,MessageBoxImage.Warning);
 					return;
 				}
-				//MessageBox.Show(formatSudoku(board), "数独", MessageBoxButton.OK, MessageBoxImage.Information);
-				//string[,] c = formatToLocate(board);
-				//dt.Stop();
 				StringBuilder test = new StringBuilder();
 				for (int i = 0; i < 9; i++)
 				{
@@ -410,42 +398,8 @@ namespace Sudoku
 						int row = 3 * (i / 3) + j / 3;
 						int col = 3 * (i % 3) + j % 3;
 						tb.Text = board[row, col].ToString();
-						//test.Append(c[i, j] + " ");
-						//tb.Text = board[row, col].ToString();
-						//Console.Write("[" + row + "," + col + "] ");
-						//Console.Write(tb.Text + "->" + board[row, col] + " ");
-						//tb.TextChanged += TextBox_TextChanged;
 					}
-					//test.Append("\n");
-					//Console.WriteLine();
 				}
-				//MessageBox.Show(test.ToString());
-				//status.Text = "已结束";
-				//for (int i = 0; i < 9; i++)
-				//{
-				//	g = gameGrid.Children[i] as Grid;
-				//	for (int j = 0; j < 9; j++)
-				//	{
-				//		int row = 3 * (i / 3) + j / 3;
-				//		int col = 3 * (i % 3) + j % 3;
-				//		string s = board[row, col].ToString();
-				//		(g.Children[j] as TextBox).Text = s;
-				//		//Console.Write("[" + row + "," + col + "] ");
-				//		Console.Write(s + "->"+ (g.Children[j] as TextBox).Text+" ");
-				//	}
-				//	Console.WriteLine();
-				//}
-				//调试输出
-				//Console.WriteLine();
-				//for (int i = 0; i < 9; i++)
-				//{
-				//	for (int j = 0; j < 9; j++)
-				//	{
-				//		Console.Write(board[i, j] + " ");
-				//	}
-				//	Console.WriteLine();
-				//}
-				//dt.Stop();
 			}
 			else if (mi.Header.ToString() == "验证")
 			{
