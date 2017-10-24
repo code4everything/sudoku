@@ -81,7 +81,7 @@ namespace Sudoku
         #endregion
 
         #region Start Game
-        public void startGame()
+        public void StartGame()
         {
             //布局文本框
             //宫
@@ -166,7 +166,7 @@ namespace Sudoku
             }
             dt.Start();
             //计算候选数字
-            calculateCandidateValues();
+            CalculateCandidateValues();
         }
         #endregion
 
@@ -183,7 +183,7 @@ namespace Sudoku
             if (mi.Header.ToString() == "开始")
             {
                 isStart = true;
-                startGame();
+                StartGame();
                 time = 0;
                 status.Text = "进行中";
                 if (hard1 == 3)
@@ -241,7 +241,7 @@ namespace Sudoku
                         Int32.TryParse(readString.Split(';')[1], out time);
                         harder.Text = readString.Split(';')[2];
                         readText = readString.Split(';')[4];
-                        startGame();
+                        StartGame();
                         status.Text = "进行中";
                     }
                     else
@@ -261,7 +261,7 @@ namespace Sudoku
                     MessageBox.Show("游戏尚未开始，不能保存！", "提示", MessageBoxButton.OK, MessageBoxImage.Information);
                     return;
                 }
-                saveGame();
+                SaveGame();
             }
             else if (mi.Header.ToString() == "查解")
             {
@@ -392,7 +392,7 @@ namespace Sudoku
 				//	}
 				//	Console.WriteLine();
 				//}
-				if (!isValidSudoku(board) || !solve(board, 0, 0))
+				if (!IsValidSudoku(board) || !Solve(board, 0, 0))
 				{
 					MessageBox.Show("糟糕，没有找到解，这个数独不对哦！","数独",MessageBoxButton.OK,MessageBoxImage.Warning);
 					return;
@@ -453,7 +453,7 @@ namespace Sudoku
 				{
 					return;
 				}
-				checkAvailable();
+				CheckAvailable();
 				if (right)
 				{
 					dt.Stop();
@@ -469,7 +469,7 @@ namespace Sudoku
 		#endregion
 
 		#region Solve Sudoku
-		public string[,] formatToLocate(char[,] board)
+		public string[,] FormatToLocate(char[,] board)
 		{
 			string[,] c = new string[9, 9];
 			for (int i = 0; i < 9; i++)
@@ -481,7 +481,7 @@ namespace Sudoku
 			}
 			return c;
 		}
-		public string formatSudoku(char[,] board)
+		public string FormatSudoku(char[,] board)
 		{
 			StringBuilder sb = new StringBuilder();
 			for(int i = 0; i < 9; i++)
@@ -494,7 +494,7 @@ namespace Sudoku
 			}
 			return sb.ToString();
 		}
-		public bool isValidSudoku(char[,] board)
+		public bool IsValidSudoku(char[,] board)
 		{
 			for (int i = 0; i < 9; i++)
 			{
@@ -514,7 +514,7 @@ namespace Sudoku
 			}
 			return true;
 		}
-		public bool solve(char[,] board, int i, int j)
+		public bool Solve(char[,] board, int i, int j)
 		{
 			if (j == 9)
 			{
@@ -525,14 +525,14 @@ namespace Sudoku
 			}
 			if (board[i,j] != '.')
 			{
-				return solve(board, i, j + 1);
+				return Solve(board, i, j + 1);
 			}
 			for (char k = '1'; k <= '9'; k++)
 			{
-				if (isValid(board, i, j, k))
+				if (IsValid(board, i, j, k))
 				{
 					board[i,j] = k;
-					if (solve(board, i, j + 1))
+					if (Solve(board, i, j + 1))
 						return true;
 					else
 						board[i,j] = '.';
@@ -541,7 +541,7 @@ namespace Sudoku
 			return false;
 		}
 
-		public bool isValid(char[,] board, int i, int j, char c)
+		public bool IsValid(char[,] board, int i, int j, char c)
 		{
 
 			for (int k = 0; k < 9; k++)
@@ -566,7 +566,7 @@ namespace Sudoku
             try
             {
                 readText = record[cb.SelectedIndex].Split(';')[1];
-                startGame();
+                StartGame();
                 dt.Stop();
                 status.Text = "已结束";
             }
@@ -578,7 +578,7 @@ namespace Sudoku
         #endregion
 
         #region Calculate Number
-        public void calculateNumber()
+        public void CalculateNumber()
         {
             //计算数字
             while (true)
@@ -704,14 +704,16 @@ namespace Sudoku
         {
             dt.Interval = TimeSpan.FromSeconds(1);
             dt.Tick += Dt_Tick;
-            t = new Thread(calculateNumber);
-            t.IsBackground = true;
+            t = new Thread(CalculateNumber)
+            {
+                IsBackground = true
+            };
             t.Start();
         }
         #endregion
 
         #region Check Available
-        public void checkAvailable()
+        public void CheckAvailable()
         {
 			//检测是否合法
 			//检测结束
@@ -799,7 +801,7 @@ namespace Sudoku
         #endregion
 
         #region Calculate Candidate Values
-        public void calculateCandidateValues()
+        public void CalculateCandidateValues()
         {
             //计算候选值
             requestes.Clear();
@@ -881,7 +883,7 @@ namespace Sudoku
                 MessageBoxResult dr = MessageBox.Show("当前游戏尚未结束，是否保存？", "温馨提示", MessageBoxButton.YesNoCancel, MessageBoxImage.Question);
                 if (MessageBoxResult.Yes == dr)
                 {
-                    saveGame();
+                    SaveGame();
                 }
                 else if(MessageBoxResult.Cancel==dr)
                 {
@@ -897,7 +899,7 @@ namespace Sudoku
         #endregion
 
         #region Save Game
-        public void saveGame()
+        public void SaveGame()
         {
             if (!Directory.Exists(@"C:\Program Files (x86)\实用工具箱\game"))
             {
