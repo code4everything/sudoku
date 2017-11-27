@@ -28,7 +28,7 @@ namespace Sudoku
         Grid g;                                     //布局控件
         MenuItem mi;                                //菜单
         Random ran = new Random();                  //随机数
-        int[,] sudoku=new int[9,9];               //存储所有数字
+        int[,] sudoku = new int[9, 9];               //存储所有数字
         bool notLegal = true;                      //所有数字是否合法
         int count;                              //每个宫产生多少个数字
         List<int> index = new List<int>();         //每个宫显示随机数的索引
@@ -43,7 +43,7 @@ namespace Sudoku
         int currentRow;                      //当前行
         int currentCol;                     //当前列
         DispatcherTimer dt = new DispatcherTimer();        //计算时间线程
-        bool isStart=true;      //是否开始
+        bool isStart = true;      //是否开始
         int time;               //用时
         int textChanged;        //输入的傎
         int hard1 = 3;          //难度下限
@@ -85,7 +85,7 @@ namespace Sudoku
         {
             //布局文本框
             //宫
-            for(int i = 0; i < 9; i++)
+            for (int i = 0; i < 9; i++)
             {
                 g = gameGrid.Children[i] as Grid;
                 g.Children.Clear();
@@ -104,7 +104,7 @@ namespace Sudoku
                     }
                 }
                 //宫内文本框
-                for(int j = 0; j < 9; j++)
+                for (int j = 0; j < 9; j++)
                 {
                     tb = new TextBox();
                     //开始游戏
@@ -143,7 +143,7 @@ namespace Sudoku
                         catch
                         {
                             MessageBox.Show("文件读取失败", "异常", MessageBoxButton.OK, MessageBoxImage.Information);
-                            for(int k = 0; k < 9; k++)
+                            for (int k = 0; k < 9; k++)
                             {
                                 g = gameGrid.Children[k] as Grid;
                                 g.Children.Clear();
@@ -190,11 +190,11 @@ namespace Sudoku
                 {
                     harder.Text = "简单";
                 }
-                else if(hard1==2)
+                else if (hard1 == 2)
                 {
                     harder.Text = "一般";
                 }
-                else if(hard1==1)
+                else if (hard1 == 1)
                 {
                     harder.Text = "困难";
                 }
@@ -293,15 +293,15 @@ namespace Sudoku
             }
             else if (mi.Header.ToString() == "关于")
             {
-                MessageBox.Show("作者：潘滔（Pantao）\r\nQQ：735817834\r\n\r\nPS：\r\n  （1）程序有任何BUG或者界面显示问题请及时提出，方便作者改进。\r\n  （2）有好的建议也强烈建议加QQ提出。\r\n\r\n注意：版权归作者所有。", "作者资料",MessageBoxButton.OK,MessageBoxImage.Information);
+                MessageBox.Show("作者：潘滔（Pantao）\r\nQQ：735817834\r\n\r\nPS：\r\n  （1）程序有任何BUG或者界面显示问题请及时提出，方便作者改进。\r\n  （2）有好的建议也强烈建议加QQ提出。\r\n\r\n注意：版权归作者所有。", "作者资料", MessageBoxButton.OK, MessageBoxImage.Information);
             }
             else if (mi.Header.ToString() == "编辑")
             {
                 if (status.Text == "未开始")
                 {
-                    for(int i = 0; i < 9; i++)
+                    for (int i = 0; i < 9; i++)
                     {
-                        for(int j = 0; j < 9; j++)
+                        for (int j = 0; j < 9; j++)
                         {
                             tb = new TextBox();
                             Grid.SetColumn(tb, j % 3);
@@ -311,22 +311,22 @@ namespace Sudoku
                     }
                     return;
                 }
-				status.Text = "未开始";
-				for (int i = 0; i < 9; i++)
+                status.Text = "未开始";
+                for (int i = 0; i < 9; i++)
                 {
                     g = gameGrid.Children[i] as Grid;
-                    for(int j = 0; j < 9; j++)
+                    for (int j = 0; j < 9; j++)
                     {
                         tb = g.Children[j] as TextBox;
                         if (!tb.IsEnabled)
                         {
                             tb.IsEnabled = true;
                         }
-						tb.Text = "";
-						tb.ToolTip = "";
-						tb.Tag = "";
-						tb.Foreground = new SolidColorBrush(Colors.Black);
-					}
+                        tb.Text = "";
+                        tb.ToolTip = "";
+                        tb.Tag = "";
+                        tb.Foreground = new SolidColorBrush(Colors.Black);
+                    }
                 }
             }
             else if (mi.Header.ToString() == "读取")
@@ -336,7 +336,7 @@ namespace Sudoku
                 isStart = false;
                 status.Text = "未开始";
                 dt.Stop();
-                if(File.Exists(@"C:\Program Files (x86)\实用工具箱\game\sudokusave.txt"))
+                if (File.Exists(@"C:\Program Files (x86)\实用工具箱\game\sudokusave.txt"))
                 {
                     this.Height = 420;
                     WrapPanel wp = new WrapPanel { Height = 20 };
@@ -345,7 +345,7 @@ namespace Sudoku
                     sr = new StreamReader(@"C:\Program Files (x86)\实用工具箱\game\sudokusave.txt", Encoding.Default);
                     readString = sr.ReadToEnd();
                     sr.Close();
-                    cb = new ComboBox { Width=200, Margin=new Thickness(30,0,0,0),};
+                    cb = new ComboBox { Width = 200, Margin = new Thickness(30, 0, 0, 0), };
                     b = new Button
                     {
                         Content = "确定",
@@ -356,7 +356,7 @@ namespace Sudoku
                     (mainGrid.Children[3] as WrapPanel).Children.Add(cb);
                     (mainGrid.Children[3] as WrapPanel).Children.Add(b);
                     recordCount = readString.Split('\n').Length - 1;
-                    for(int i = 0; i < recordCount; i++)
+                    for (int i = 0; i < recordCount; i++)
                     {
                         record.Add(readString.Split('\n')[i]);
                         cb.Items.Add(record[i].Split(';')[0]);
@@ -369,153 +369,153 @@ namespace Sudoku
             }
             else if (mi.Header.ToString() == "求解")
             {
-				if (status.Text != "未开始")
-				{
-					return;
-				}
-				char[,] board = new char[9,9];
-				for (int i = 0; i < 9; i++)
-				{
-					g = gameGrid.Children[i] as Grid;
-					for (int j = 0; j < 9; j++)
-					{
-						string s = (g.Children[j] as TextBox).Text;
-						board[i / 3 * 3 + j / 3, i % 3 * 3 + j % 3] = s.Length < 1 ? '.' : s[0];
-					}
-				}
-				if (!IsValidSudoku(board) || !Solve(board, 0, 0))
-				{
-					MessageBox.Show("糟糕，没有找到解，这个数独不对哦！","数独",MessageBoxButton.OK,MessageBoxImage.Warning);
-					return;
-				}
-				StringBuilder test = new StringBuilder();
-				for (int i = 0; i < 9; i++)
-				{
-					g = gameGrid.Children[i] as Grid;
-					for (int j = 0; j < 9; j++)
-					{
-						tb = g.Children[j] as TextBox;
-						int row = 3 * (i / 3) + j / 3;
-						int col = 3 * (i % 3) + j % 3;
-						tb.Text = board[row, col].ToString();
-					}
-				}
-			}
-			else if (mi.Header.ToString() == "验证")
-			{
-				if (tb == null)
-				{
-					return;
-				}
-				CheckAvailable();
-				if (right)
-				{
-					dt.Stop();
-					status.Text = "已结束";
-					MessageBox.Show("完美，你太厉害啦", "你赢啦", MessageBoxButton.OK, MessageBoxImage.Information);
-				}
-				else
-				{
-					MessageBox.Show("没对哦，请仔细检查", "数独", MessageBoxButton.OK, MessageBoxImage.Information);
-				}
-			}
-		}
-		#endregion
+                if (status.Text != "未开始")
+                {
+                    return;
+                }
+                char[,] board = new char[9, 9];
+                for (int i = 0; i < 9; i++)
+                {
+                    g = gameGrid.Children[i] as Grid;
+                    for (int j = 0; j < 9; j++)
+                    {
+                        string s = (g.Children[j] as TextBox).Text;
+                        board[i / 3 * 3 + j / 3, i % 3 * 3 + j % 3] = s.Length < 1 ? '.' : s[0];
+                    }
+                }
+                if (!IsValidSudoku(board) || !Solve(board, 0, 0))
+                {
+                    MessageBox.Show("糟糕，没有找到解，这个数独不对哦！", "数独", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    return;
+                }
+                StringBuilder test = new StringBuilder();
+                for (int i = 0; i < 9; i++)
+                {
+                    g = gameGrid.Children[i] as Grid;
+                    for (int j = 0; j < 9; j++)
+                    {
+                        tb = g.Children[j] as TextBox;
+                        int row = 3 * (i / 3) + j / 3;
+                        int col = 3 * (i % 3) + j % 3;
+                        tb.Text = board[row, col].ToString();
+                    }
+                }
+            }
+            else if (mi.Header.ToString() == "验证")
+            {
+                if (tb == null)
+                {
+                    return;
+                }
+                CheckAvailable();
+                if (right)
+                {
+                    dt.Stop();
+                    status.Text = "已结束";
+                    MessageBox.Show("完美，你太厉害啦", "你赢啦", MessageBoxButton.OK, MessageBoxImage.Information);
+                }
+                else
+                {
+                    MessageBox.Show("没对哦，请仔细检查", "数独", MessageBoxButton.OK, MessageBoxImage.Information);
+                }
+            }
+        }
+        #endregion
 
-		#region Solve Sudoku
-		public string[,] FormatToLocate(char[,] board)
-		{
-			string[,] c = new string[9, 9];
-			for (int i = 0; i < 9; i++)
-			{
-				for (int j = 0; j < 9; j++)
-				{
-					c[i, j] = board[3 * (i / 3) + j / 3, 3 * (i % 3) + j % 3].ToString();
-				}
-			}
-			return c;
-		}
-		public string FormatSudoku(char[,] board)
-		{
-			StringBuilder sb = new StringBuilder();
-			for(int i = 0; i < 9; i++)
-			{
-				for(int j = 0; j < 9; j++)
-				{
-					sb.Append(board[i, j]+" ");
-				}
-				sb.Append("\n");
-			}
-			return sb.ToString();
-		}
-		public bool IsValidSudoku(char[,] board)
-		{
-			for (int i = 0; i < 9; i++)
-			{
-				HashSet<Char> rows = new HashSet<Char>();
-				HashSet<Char> cols = new HashSet<Char>();
-				HashSet<Char> cube = new HashSet<Char>();
-				for (int j = 0; j < 9; j++)
-				{
-					if (board[i,j] != '.' && !rows.Add(board[i,j]))
-						return false;
-					if (board[j,i] != '.' && !cols.Add(board[j,i]))
-						return false;
-					if (board[i / 3 * 3 + j / 3,i % 3 * 3 + j % 3] != '.'
-							&& !cube.Add(board[i / 3 * 3 + j / 3,i % 3 * 3 + j % 3]))
-						return false;
-				}
-			}
-			return true;
-		}
-		public bool Solve(char[,] board, int i, int j)
-		{
-			if (j == 9)
-			{
-				if (i == 8)
-					return true;
-				i++;
-				j = 0;
-			}
-			if (board[i,j] != '.')
-			{
-				return Solve(board, i, j + 1);
-			}
-			for (char k = '1'; k <= '9'; k++)
-			{
-				if (IsValid(board, i, j, k))
-				{
-					board[i,j] = k;
-					if (Solve(board, i, j + 1))
-						return true;
-					else
-						board[i,j] = '.';
-				}
-			}
-			return false;
-		}
+        #region Solve Sudoku
+        public string[,] FormatToLocate(char[,] board)
+        {
+            string[,] c = new string[9, 9];
+            for (int i = 0; i < 9; i++)
+            {
+                for (int j = 0; j < 9; j++)
+                {
+                    c[i, j] = board[3 * (i / 3) + j / 3, 3 * (i % 3) + j % 3].ToString();
+                }
+            }
+            return c;
+        }
+        public string FormatSudoku(char[,] board)
+        {
+            StringBuilder sb = new StringBuilder();
+            for (int i = 0; i < 9; i++)
+            {
+                for (int j = 0; j < 9; j++)
+                {
+                    sb.Append(board[i, j] + " ");
+                }
+                sb.Append("\n");
+            }
+            return sb.ToString();
+        }
+        public bool IsValidSudoku(char[,] board)
+        {
+            for (int i = 0; i < 9; i++)
+            {
+                HashSet<Char> rows = new HashSet<Char>();
+                HashSet<Char> cols = new HashSet<Char>();
+                HashSet<Char> cube = new HashSet<Char>();
+                for (int j = 0; j < 9; j++)
+                {
+                    if (board[i, j] != '.' && !rows.Add(board[i, j]))
+                        return false;
+                    if (board[j, i] != '.' && !cols.Add(board[j, i]))
+                        return false;
+                    if (board[i / 3 * 3 + j / 3, i % 3 * 3 + j % 3] != '.'
+                            && !cube.Add(board[i / 3 * 3 + j / 3, i % 3 * 3 + j % 3]))
+                        return false;
+                }
+            }
+            return true;
+        }
+        public bool Solve(char[,] board, int i, int j)
+        {
+            if (j == 9)
+            {
+                if (i == 8)
+                    return true;
+                i++;
+                j = 0;
+            }
+            if (board[i, j] != '.')
+            {
+                return Solve(board, i, j + 1);
+            }
+            for (char k = '1'; k <= '9'; k++)
+            {
+                if (IsValid(board, i, j, k))
+                {
+                    board[i, j] = k;
+                    if (Solve(board, i, j + 1))
+                        return true;
+                    else
+                        board[i, j] = '.';
+                }
+            }
+            return false;
+        }
 
-		public bool IsValid(char[,] board, int i, int j, char c)
-		{
+        public bool IsValid(char[,] board, int i, int j, char c)
+        {
 
-			for (int k = 0; k < 9; k++)
-			{
-				if (board[i,k] != '.' && board[i,k] == c)
-					return false;
-				if (board[k,j] != '.' && board[k,j] == c)
-					return false;
-				if (board[i / 3 * 3 + k / 3,j / 3 * 3 + k % 3] != '.'
-						&& board[i / 3 * 3 + k / 3,j / 3 * 3 + k % 3] == c)
-					return false;
+            for (int k = 0; k < 9; k++)
+            {
+                if (board[i, k] != '.' && board[i, k] == c)
+                    return false;
+                if (board[k, j] != '.' && board[k, j] == c)
+                    return false;
+                if (board[i / 3 * 3 + k / 3, j / 3 * 3 + k % 3] != '.'
+                        && board[i / 3 * 3 + k / 3, j / 3 * 3 + k % 3] == c)
+                    return false;
 
-			}
-			return true;
-		}
-		#endregion
+            }
+            return true;
+        }
+        #endregion
 
 
-		#region Button Click
-		private void B_Click(object sender, RoutedEventArgs e)
+        #region Button Click
+        private void B_Click(object sender, RoutedEventArgs e)
         {
             try
             {
@@ -620,25 +620,25 @@ namespace Sudoku
         #region Text Changed to Check
         public void TextBox_TextChanged(object sender, RoutedEventArgs e)
         {
-			tb = sender as TextBox;
-			if (tb.Text != "")
-			{
-				try
-				{
-					textChanged = Int32.Parse(tb.Text);
-					if (textChanged == 0)
-					{
-						tb.Text = "";
-					}
-				}
-				catch
-				{
-					tb.Text = "";
-				}
-				
-			}
-			e.Handled = true;
-		}
+            tb = sender as TextBox;
+            if (tb.Text != "")
+            {
+                try
+                {
+                    textChanged = Int32.Parse(tb.Text);
+                    if (textChanged == 0)
+                    {
+                        tb.Text = "";
+                    }
+                }
+                catch
+                {
+                    tb.Text = "";
+                }
+
+            }
+            e.Handled = true;
+        }
         #endregion
 
         #region Mouse Wheel to Mention
@@ -669,24 +669,24 @@ namespace Sudoku
         #region Check Available
         public void CheckAvailable()
         {
-			//检测是否合法
-			//检测结束
-			isEnd = true;
-			for (int i = 0; i < 9; i++)
-			{
-				g = gameGrid.Children[i] as Grid;
-				for (int j = 0; j < 9; j++)
-				{
-					tb = g.Children[j] as TextBox;
-					if (tb.Text == "")
-					{
-						isEnd = false;
-						right = false;
-						return;
-					}
-				}
-			}
-			right = true;
+            //检测是否合法
+            //检测结束
+            isEnd = true;
+            for (int i = 0; i < 9; i++)
+            {
+                g = gameGrid.Children[i] as Grid;
+                for (int j = 0; j < 9; j++)
+                {
+                    tb = g.Children[j] as TextBox;
+                    if (tb.Text == "")
+                    {
+                        isEnd = false;
+                        right = false;
+                        return;
+                    }
+                }
+            }
+            right = true;
             //宫
             request.Clear();
             for (int i = 0; i < 9; i++)
@@ -815,7 +815,7 @@ namespace Sudoku
                         }
                     }
                     tempString = "候选值：";
-                    for(int k = 0; k < request.Count; k++)
+                    for (int k = 0; k < request.Count; k++)
                     {
                         tempString += request[k] + " ";
                     }
@@ -839,7 +839,7 @@ namespace Sudoku
                 {
                     SaveGame();
                 }
-                else if(MessageBoxResult.Cancel==dr)
+                else if (MessageBoxResult.Cancel == dr)
                 {
                     e.Cancel = true;
                     dt.Start();

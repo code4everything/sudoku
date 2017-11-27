@@ -2,6 +2,8 @@
 
 主要利用回溯算法来完成对数独的求解
 
+[点我下载](http://oq3iwfipo.bkt.clouddn.com/zhazhapan/game/Sudoku.exe)
+
 游戏截图
 
 ![截图](http://oq4pzgtcb.bkt.clouddn.com/zhazhapan/md/QQ20171023-202837@2x.png)
