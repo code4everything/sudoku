@@ -19,6 +19,7 @@
             <Setter Property="BorderBrush" Value="OrangeRed"/>
             <Setter Property="BorderThickness" Value="1"/>
             <Setter Property="ToolTipService.ShowOnDisabled" Value="True"/>
+            <Setter Property="InputMethod.IsInputMethodEnabled" Value="False"/>
         </Style>
         <Style TargetType="ToolTip">
             <Setter Property="BorderBrush" Value="DarkRed"/>

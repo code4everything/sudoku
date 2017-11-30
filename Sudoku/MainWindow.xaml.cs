@@ -45,7 +45,7 @@ namespace Sudoku
         DispatcherTimer dt = new DispatcherTimer();        //计算时间线程
         bool isStart = true;      //是否开始
         int time;               //用时
-        int textChanged;        //输入的傎
+        int textChanged = 0;        //输入的傎
         int hard1 = 3;          //难度下限
         int hard2 = 5;          //难度上限
         Thread t;               //计算数值线程
@@ -635,7 +635,6 @@ namespace Sudoku
                 {
                     tb.Text = "";
                 }
-
             }
             e.Handled = true;
         }
