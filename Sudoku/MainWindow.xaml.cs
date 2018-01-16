@@ -64,6 +64,7 @@ namespace Sudoku
         List<List<int>> requestes = new List<List<int>>();
         bool right = false;                 //求解数字是否合法
         string tempString;
+        string storageFolder = @"C:\Program Files (x86)\实用工具箱\game\";
 
         #region Initialize
         public MainWindow()
@@ -232,9 +233,9 @@ namespace Sudoku
                 try
                 {
                     isStart = false;
-                    if (File.Exists(@"C:\Program Files (x86)\实用工具箱\game\sudokutemp.txt"))
+                    if (File.Exists(storageFolder + "sudokutemp.txt"))
                     {
-                        sr = new StreamReader(@"C:\Program Files (x86)\实用工具箱\game\sudokutemp.txt", Encoding.Default);
+                        sr = new StreamReader(storageFolder + "sudokutemp.txt", Encoding.Default);
                         readString = sr.ReadToEnd();
                         sr.Close();
                         readTag = readString.Split(';')[0];
@@ -301,12 +302,14 @@ namespace Sudoku
                 {
                     for (int i = 0; i < 9; i++)
                     {
+                        Grid g = gameGrid.Children[i] as Grid;
+                        g.Children.Clear();
                         for (int j = 0; j < 9; j++)
                         {
                             tb = new TextBox();
                             Grid.SetColumn(tb, j % 3);
                             Grid.SetRow(tb, j / 3);
-                            (gameGrid.Children[i] as Grid).Children.Add(tb);
+                            g.Children.Add(tb);
                         }
                     }
                     return;
@@ -336,13 +339,13 @@ namespace Sudoku
                 isStart = false;
                 status.Text = "未开始";
                 dt.Stop();
-                if (File.Exists(@"C:\Program Files (x86)\实用工具箱\game\sudokusave.txt"))
+                if (File.Exists(storageFolder + "sudokusave.txt"))
                 {
                     this.Height = 420;
                     WrapPanel wp = new WrapPanel { Height = 20 };
                     Grid.SetRow(wp, 3);
                     mainGrid.Children.Add(wp);
-                    sr = new StreamReader(@"C:\Program Files (x86)\实用工具箱\game\sudokusave.txt", Encoding.Default);
+                    sr = new StreamReader(storageFolder + "sudokusave.txt", Encoding.Default);
                     readString = sr.ReadToEnd();
                     sr.Close();
                     cb = new ComboBox { Width = 200, Margin = new Thickness(30, 0, 0, 0), };
@@ -854,25 +857,25 @@ namespace Sudoku
         #region Save Game
         public void SaveGame()
         {
-            if (!Directory.Exists(@"C:\Program Files (x86)\实用工具箱\game"))
+            if (!Directory.Exists(storageFolder))
             {
-                Directory.CreateDirectory(@"C:\Program Files (x86)\实用工具箱\game");
+                Directory.CreateDirectory(storageFolder);
             }
-            if (!File.Exists(@"C:\Program Files (x86)\实用工具箱\game\sudokusave.txt"))
+            if (!File.Exists(storageFolder + "sudokusave.txt"))
             {
-                FileStream f = new FileStream(@"C:\Program Files (x86)\实用工具箱\game\sudokusave.txt", FileMode.Create);
+                FileStream f = new FileStream(storageFolder + "sudokusave.txt", FileMode.Create);
                 f.Close();
             }
             if (status.Text == "已结束")
             {
                 //保存结束的游戏
-                fs = new FileStream(@"C:\Program Files (x86)\实用工具箱\game\sudokusave.txt", FileMode.Append);
+                fs = new FileStream(storageFolder + "sudokusave.txt", FileMode.Append);
                 sw = new StreamWriter(fs, Encoding.Unicode);
             }
             else
             {
                 //保存进行中的游戏
-                fs = new FileStream(@"C:\Program Files (x86)\实用工具箱\game\sudokutemp.txt", FileMode.Create);
+                fs = new FileStream(storageFolder + "sudokutemp.txt", FileMode.Create);
                 sw = new StreamWriter(fs, Encoding.Unicode);
                 for (int i = 0; i < 9; i++)
                 {
